@@ -11,6 +11,7 @@ Video
   - [ ] Vidu
   - [ ] Wan
   - [ ] Hunyuan
+  - [ ] VEO
 
 Imgae
   - [ ] Midjourney
@@ -33,3 +34,20 @@ LLM
 
 VLLM
   - [ ] Gemini
+
+
+## show
+
+<video width="918" height="480" controls>
+  <source src="./assets/show.mp4" type="video/mp4">
+</video>
+
+
+## how to use
+
+go to config.ini
+
+input your comfyonline api token
+https://www.comfyonline.app/account/api_token
+
+
