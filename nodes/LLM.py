@@ -3,7 +3,7 @@ import time
 import requests
 import os
 import folder_paths
-from nodes.utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key
 from server import PromptServer
 
 class LLMTask:

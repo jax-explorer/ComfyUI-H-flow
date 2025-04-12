@@ -2,7 +2,7 @@ import os
 import json
 import time
 import requests
-from nodes.utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key
 from server import PromptServer
 from aiohttp import web
 import nodes

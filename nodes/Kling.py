@@ -2,7 +2,7 @@ import os
 import json
 import time
 import requests
-from nodes.utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key
 from server import PromptServer
 from aiohttp import web
 import nodes
@@ -23,8 +23,8 @@ class KlingImageToVideo:
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
                 "image_url": ("STRING", {"default": ""}),
-                "aspect_ratio": ("STRING", {"default": "16:9", "choices": ["1:1", "4:3", "16:9", "9:16"]}),
-                "duration": ("INT", {"default": 4, "min": 1, "max": 16}),
+                "aspect_ratio": (["1:1", "16:9", "9:16"], {"default": "16:9"}),
+                "duration": ([5, 10], {"default": 10}),
                 "is_pro": ("BOOLEAN", {"default": False}),
             }
         }

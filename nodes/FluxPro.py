@@ -2,12 +2,12 @@ import os
 import json
 import time
 import requests
-from nodes.utils import get_comfyonline_api_key
 from server import PromptServer
 from aiohttp import web
 import nodes
 import folder_paths
 import random
+from .utils import get_comfyonline_api_key
 
 class FluxProUltra:
 
@@ -23,7 +23,7 @@ class FluxProUltra:
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
                 "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
-                "aspect_ratio": ("STRING", {"default": "1:1", "options": ["1:1", "16:9", "9:16", "4:3", "3:4"]}),
+                "aspect_ratio": (["1:1", "16:9", "9:16", "4:3", "3:4"], {"default": "1:1" }),
                 "raw": ("BOOLEAN", {"default": False}),
             }
         }

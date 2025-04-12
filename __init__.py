@@ -1,11 +1,11 @@
-from nodes.FluxPro import FluxProUltra
-from nodes.IdeogramV2 import IdeogramV2Turbo
-from nodes.Kling import KlingImageToVideo
-from nodes.LLM import LLMTask
-from nodes.Runway import RunwayImageToVideo
-from nodes.SaveImage import SaveImage
-from nodes.SaveVideo import SaveVideo
-from nodes.wan2 import Wan2ImageToVideo
+from .nodes.FluxPro import FluxProUltra
+from .nodes.IdeogramV2 import IdeogramV2Turbo
+from .nodes.Kling import KlingImageToVideo
+from .nodes.LLM import LLMTask
+from .nodes.Runway import RunwayImageToVideo
+from .nodes.SaveImage import SaveImage
+from .nodes.SaveVideo import SaveVideo
+from .nodes.wan2 import Wan2ImageToVideo
 
 
 NODE_CLASS_MAPPINGS = {
