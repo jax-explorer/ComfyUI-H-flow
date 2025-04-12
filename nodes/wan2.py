@@ -22,7 +22,7 @@ class Wan2ImageToVideo:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("video_url",)
     FUNCTION = "image_to_video"
-    CATEGORY = "Video"
+    CATEGORY = "H-flow.Video"
 
     def image_to_video(self, prompt, image_url):
         # 使用默认值

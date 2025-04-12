@@ -31,7 +31,7 @@ class FluxProUltra:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("output_url",)
     FUNCTION = "generate_image"
-    CATEGORY = "Image"
+    CATEGORY = "H-flow.Image"
     OUTPUT_NODE = True
 
 

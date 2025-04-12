@@ -3,7 +3,7 @@
 support Many AI Feature
 
 Video
-  - [ ] Kling
+  - [x] Kling STD & Pro
   - [ ] Runway
   - [ ] Hailuo
   - [ ] Luma
@@ -14,7 +14,7 @@ Video
 
 Imgae
   - [ ] Midjourney
-  - [ ] Flux Pro
+  - [x] Flux Pro
   - [ ] Ideogram V2
   - [ ] Recraft
   - [ ] Flux Dev
@@ -26,10 +26,10 @@ Audio
   - [ ] MMAudio
 
 LLM
-  - [ ] GPT 40/ 40 mini
-  - [ ] Claude 3.7 Sonnet 
-  - [ ] Gemini
-  - [ ] DeepSeek
+  - [x] GPT 40/ 40 mini
+  - [x] Claude 3.7 Sonnet 
+  - [x] Gemini
+  - [x] DeepSeek
 
 VLLM
   - [ ] Gemini

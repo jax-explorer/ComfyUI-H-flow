@@ -276,21 +276,8 @@ function path_stem(path) {
 }
 
 
-app.ui.settings.addSetting({
-    id: "VHS.AdvancedPreviews",
-    name: "🎥🅥🅗🅢 Advanced Previews",
-    type: "boolean",
-    defaultValue: false,
-});
-app.ui.settings.addSetting({
-    id: "VHS.DefaultMute",
-    name: "🎥🅥🅗🅢 Mute videos by default",
-    type: "boolean",
-    defaultValue: false,
-});
-
 app.registerExtension({
-    name: "VideoHelperSuite.Core",
+    name: "H-flow.Video",
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if(nodeData?.name?.startsWith("VHS_")) {
             useKVState(nodeType);
@@ -330,7 +317,7 @@ app.registerExtension({
                 }
             });
         }
-        if (nodeData?.name == "VHS_VideoCombine" || nodeData?.name == "SaveVideo" || nodeData?.name == "KlingImageToVideo") {
+        if (nodeData?.name == "SaveVideo" || nodeData?.name == "KlingImageToVideo") {
             console.log("nodeData", nodeData);
             
             chainCallback(nodeType.prototype, "onExecuted", function(message) {

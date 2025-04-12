@@ -2,7 +2,7 @@ from .nodes.FluxPro import FluxProUltra
 from .nodes.IdeogramV2 import IdeogramV2Turbo
 from .nodes.Kling import KlingImageToVideo
 from .nodes.LLM import LLMTask
-from .nodes.Runway import RunwayImageToVideo
+from .nodes.Runway import RunwayGen3ImageToVideo
 from .nodes.SaveImage import SaveImage
 from .nodes.SaveVideo import SaveVideo
 from .nodes.wan2 import Wan2ImageToVideo
@@ -15,7 +15,7 @@ NODE_CLASS_MAPPINGS = {
       "SaveVideo": SaveVideo,
       "FluxProUltra": FluxProUltra,
       "IdeogramV2Turbo": IdeogramV2Turbo,
-      "RunwayImageToVideo": RunwayImageToVideo,
+      "RunwayGen3ImageToVideo": RunwayGen3ImageToVideo,
       "KlingImageToVideo": KlingImageToVideo,
 
 }
@@ -28,7 +28,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
   "ShowText": "Show Text",
   "FluxProUltra": "FluxPro Ultra",
   "IdeogramV2Turbo": "IdeogramV2 Turbo",
-  "RunwayImageToVideo": "Runway Image To Video",
+  "RunwayGen3ImageToVideo": "Runway Gen3 Image To Video",
   "KlingImageToVideo": "Kling Image To Video",
   "ReplaceText": "Replace Text",
   "JoinText": "Join Text",

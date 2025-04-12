@@ -2,7 +2,7 @@ import os
 import json
 import time
 import requests
-from .utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key, process_image_path_or_url
 from server import PromptServer
 from aiohttp import web
 import nodes
@@ -53,6 +53,7 @@ class KlingImageToVideo:
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_token}'
         }
+        image_url = process_image_path_or_url(image_url)
         payload = {
             "prompt": prompt,
             "image_url": image_url,
@@ -93,7 +94,7 @@ class KlingImageToVideo:
                     
                     if output_url_list and len(output_url_list) > 0:
                         counter = random.randint(1, 100000)
-                        file = f"{filename_prefix}_{counter:05}_.png"
+                        file = f"{filename_prefix}_{counter:05}_.mp4"
 
                         output_path = os.path.join(full_output_folder, file)
                         

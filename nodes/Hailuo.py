@@ -2,7 +2,7 @@ import os
 import json
 import time
 import requests
-from .utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key, process_image_path_or_url
 from server import PromptServer
 from aiohttp import web
 import nodes
@@ -32,7 +32,7 @@ class HailuoImageToVideo:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("video_url",)
     FUNCTION = "image_to_video"
-    CATEGORY = "Video"
+    CATEGORY = "H-flow.Video"
     OUTPUT_NODE = True
 
     def image_to_video(self, prompt, image_url, aspect_ratio, duration, is_pro, webhook=""):
@@ -41,7 +41,7 @@ class HailuoImageToVideo:
         polling_interval = 10  # 默认轮询间隔为10秒
         
         results = list()
-        filename_prefix = "KlingVideo"
+        filename_prefix = "HailuoVideo"
         # 从环境变量获取API令牌
         api_token = get_comfyonline_api_key()
         if not api_token:
@@ -53,6 +53,7 @@ class HailuoImageToVideo:
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_token}'
         }
+        image_url = process_image_path_or_url(image_url)
         payload = {
             "prompt": prompt,
             "image_url": image_url,
@@ -93,7 +94,7 @@ class HailuoImageToVideo:
                     
                     if output_url_list and len(output_url_list) > 0:
                         counter = random.randint(1, 100000)
-                        file = f"{filename_prefix}_{counter:05}_.png"
+                        file = f"{filename_prefix}_{counter:05}_.mp4"
 
                         output_path = os.path.join(full_output_folder, file)
                         

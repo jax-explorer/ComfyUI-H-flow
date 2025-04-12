@@ -60,7 +60,7 @@ def get_comfyonline_config():
 
 def get_comfyonline_api_key():
     config = get_comfyonline_config()
-    config_api_key = config.get("comfyonline").get("api_key")
+    config_api_key = config["comfyonline"]["api_key"]
     env_api_token = os.getenv("COMFYONLINE_TOKEN")
     if not env_api_token:
         api_token = config_api_key

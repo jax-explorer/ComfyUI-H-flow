@@ -3,7 +3,7 @@ import { ComfyWidgets } from "../../../scripts/widgets.js";
 
 // Displays input text on a node
 app.registerExtension({
-	name: "ShowText",
+	name: "H-flow.Text",
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		if (nodeData.name === "TestText" || nodeData.name === "LLMTask") {
 			function populate(text) {

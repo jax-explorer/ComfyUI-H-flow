@@ -3,17 +3,17 @@ import json
 import time
 import requests
 
-from .utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key, process_image_path_or_url
 
-class RunwayImageToVideo:
+class RunwayGen3ImageToVideo:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
                 "image_url": ("STRING", {"default": ""}),
-                "aspect_ratio": ("STRING", {"default": "16:9", "choices": ["1:1", "4:3", "16:9", "9:16"]}),
-                "duration": ("INT", {"default": 4, "min": 1, "max": 16}),
+                "aspect_ratio": (["1:1", "16:9", "9:16"], {"default": "16:9"}),
+                "duration": ([5, 10], {"default": 5}),
             },
             "optional": {
                 "webhook": ("STRING", {"default": ""}),
@@ -41,6 +41,7 @@ class RunwayImageToVideo:
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_token}'
         }
+        image_url = process_image_path_or_url(image_url)
         payload = {
             "prompt": prompt,
             "image_url": image_url,

@@ -4,17 +4,17 @@ import requests
 import os
 import folder_paths
 from .utils import get_comfyonline_api_key
-from server import PromptServer
 
 class LLMTask:
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "prompt": ("STRING", {"multiline": True}),
                 "model": (["deepseek-r1", "deepseek-v3", "gpt-4o", "gpt-4o-mini", 
                           "claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022", 
-                          "gemini-1.5-pro", "gemini-1.5-flash", "gemini-2.0-flash-exp"],),
+                          "gemini-1.5-pro", "gemini-1.5-flash", "gemini-2.0-flash-exp"],{"default": "gpt-4o" }),
+                "prompt": ("STRING", {"multiline": True}),
+
             },
             "optional": {
                 "context": ("STRING", {"default": '', "forceInput": True}),
@@ -27,7 +27,7 @@ class LLMTask:
     CATEGORY = "LLM"
     OUTPUT_NODE = True
 
-    def execute(self, prompt, model, context=""):
+    def execute(self, model, prompt, context=""):
         # 创建 LLM 任务
         if context:
             prompt = prompt + "\n" + "context:" + context
@@ -53,11 +53,15 @@ class LLMTask:
             "webhook": "",  # 不使用 webhook，我们将通过轮询获取结果
         }
         
+        print("start create llm task")
         # 如果提供了上下文，则添加到请求体中
         if context:
             body["context"] = context
-            
+        
         api_token = get_comfyonline_api_key()
+        if not api_token:
+            return ("Error: No API token provided. Please set COMFYONLINE_TOKEN environment variable.",)
+        
         print(f"api_token {api_token}")
         headers = {
             'Content-Type': 'application/json',

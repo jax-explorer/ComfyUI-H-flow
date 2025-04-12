@@ -2,7 +2,7 @@ import os
 import json
 import time
 import requests
-from .utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key, process_image_path_or_url
 from server import PromptServer
 from aiohttp import web
 import nodes
@@ -23,9 +23,6 @@ class HailuoImageToVideo:
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
                 "image_url": ("STRING", {"default": ""}),
-                "aspect_ratio": ("STRING", {"default": "16:9", "choices": ["1:1", "4:3", "16:9", "9:16"]}),
-                "duration": ("INT", {"default": 4, "min": 1, "max": 16}),
-                "is_pro": ("BOOLEAN", {"default": False}),
             }
         }
 
@@ -35,30 +32,28 @@ class HailuoImageToVideo:
     CATEGORY = "Video"
     OUTPUT_NODE = True
 
-    def image_to_video(self, prompt, image_url, aspect_ratio, duration, is_pro, webhook=""):
+    def image_to_video(self, prompt, image_url, webhook=""):
         # 使用默认值
         max_wait_time = 3600  # 默认等待时间为3600秒
         polling_interval = 10  # 默认轮询间隔为10秒
         
         results = list()
-        filename_prefix = "KlingVideo"
+        filename_prefix = "LumaVideo"
         # 从环境变量获取API令牌
         api_token = get_comfyonline_api_key()
         if not api_token:
             return ("Error: No API token provided. Please set COMFYONLINE_TOKEN environment variable.",)
         
         # 创建任务
-        create_task_url = "https://api.comfyonline.app/api/un-api/create_kling_image2video_task"
+        create_task_url = "https://api.comfyonline.app/api/un-api/create_luma_ray2_image_to_video"
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_token}'
         }
+        image_url = process_image_path_or_url(image_url)
         payload = {
             "prompt": prompt,
             "image_url": image_url,
-            "aspect_radio": aspect_ratio,
-            "duration": duration,
-            "isPro": is_pro
         }
         
         try:
@@ -93,7 +88,7 @@ class HailuoImageToVideo:
                     
                     if output_url_list and len(output_url_list) > 0:
                         counter = random.randint(1, 100000)
-                        file = f"{filename_prefix}_{counter:05}_.png"
+                        file = f"{filename_prefix}_{counter:05}_.mp4"
 
                         output_path = os.path.join(full_output_folder, file)
                         
