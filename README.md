@@ -38,9 +38,10 @@ VLLM
 
 ## show
 
-<video width="918" height="480" controls>
-  <source src="./assets/show.mp4" type="video/mp4">
-</video>
+
+https://github.com/user-attachments/assets/77bfe1f8-dc11-4a37-8c66-df96dd883d05
+
+
 
 
 ## how to use
