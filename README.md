@@ -21,17 +21,15 @@ Imgae
   - [ ] Gemini
   - [ ] GPT 4O
 
-
-
 Audio
   - [ ] ElevenLabs
   - [ ] MMAudio
 
 LLM
-    - [ ] GPT 40/ 40 mini
-    - [ ] Claude 3.7 Sonnet 
-    - [ ] Gemini
-    - [ ] DeepSeek
+  - [ ] GPT 40/ 40 mini
+  - [ ] Claude 3.7 Sonnet 
+  - [ ] Gemini
+  - [ ] DeepSeek
 
 VLLM
-    - [ ] Gemini
+  - [ ] Gemini
