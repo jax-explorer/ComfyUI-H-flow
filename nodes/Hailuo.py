@@ -32,7 +32,7 @@ class Hailuo01ImageToVideo:
     CATEGORY = "H-flow.Video"
     OUTPUT_NODE = True
 
-    def image_to_video(self, prompt, image_url, aspect_ratio, duration, is_pro, webhook=""):
+    def image_to_video(self, prompt, image_url):
         # 使用默认值
         max_wait_time = 3600  # 默认等待时间为3600秒
         polling_interval = 10  # 默认轮询间隔为10秒
