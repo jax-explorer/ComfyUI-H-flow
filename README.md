@@ -4,12 +4,12 @@ support Many AI Feature
 
 Video
   - [x] Kling STD & Pro
-  - [ ] Runway
+  - [x] Runway
   - [ ] Hailuo
-  - [ ] Luma
+  - [x] Luma
   - [ ] Pika
   - [ ] Vidu
-  - [ ] Wan
+  - [ ] Wan 720P
   - [ ] Hunyuan
   - [ ] VEO
 
@@ -19,8 +19,6 @@ Imgae
   - [x] Ideogram V2
   - [ ] Recraft
   - [ ] Flux Dev
-  - [ ] Gemini
-  - [ ] GPT 4O
   - [x] HiDream I1
 
 Audio
@@ -40,6 +38,10 @@ LipSync
 
 VLLM
   - [ ] Gemini
+
+MutileModel (support  image input & image output)
+  - [ ] Gemini
+  - [ ] GPT 4O
 
 
 ## show

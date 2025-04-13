@@ -317,7 +317,7 @@ app.registerExtension({
                 }
             });
         }
-        if (nodeData?.name == "SaveVideo" || nodeData?.name == "KlingImageToVideo") {
+        if (nodeData?.name == "SaveVideo" || nodeData?.name == "KlingImageToVideo" || nodeData?.name == "RunwayGen3ImageToVideo" || nodeData?.name == "LumaRay2ImageToVideo") {
             console.log("nodeData", nodeData);
             
             chainCallback(nodeType.prototype, "onExecuted", function(message) {

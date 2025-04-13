@@ -7,6 +7,8 @@ from .nodes.SaveImage import SaveImage
 from .nodes.SaveVideo import SaveVideo
 from .nodes.wan2 import Wan2ImageToVideo
 from .nodes.HiDreamI1 import HiDreamI1
+from .nodes.LoadImage import LoadImage
+from .nodes.Luma import LumaRay2ImageToVideo
 
 
 NODE_CLASS_MAPPINGS = {
@@ -19,7 +21,8 @@ NODE_CLASS_MAPPINGS = {
       "RunwayGen3ImageToVideo": RunwayGen3ImageToVideo,
       "KlingImageToVideo": KlingImageToVideo,
       "HiDreamI1": HiDreamI1,
-
+      "HFLowLoadImage": LoadImage,
+      "LumaRay2ImageToVideo": LumaRay2ImageToVideo
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -36,7 +39,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
   "JoinText": "Join Text",
   "TestImage": "Test Image",
   "TestText": "Test Text",
-  "HiDreamI1": "HiDream I1"
+  "HiDreamI1": "HiDream I1",
+  "HFLowLoadImage": "HFLow Load Image",
+  "LumaRay2ImageToVideo": "Luma Ray2 Image To Video"
 }
 
 WEB_DIRECTORY = "./web"

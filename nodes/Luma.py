@@ -9,7 +9,7 @@ import nodes
 import folder_paths
 import random
 
-class HailuoImageToVideo:
+class LumaRay2ImageToVideo:
 
     def __init__(self):
         self.output_dir = folder_paths.get_output_directory()
@@ -124,5 +124,5 @@ class HailuoImageToVideo:
             raise Exception(f"Task timed out after {max_wait_time} seconds")
             
         except Exception as e:
-            print(f"Error in KlingImageToVideo: {str(e)}")
+            print(f"Error in LumaImageToVideo: {str(e)}")
             return (f"Error: {str(e)}",)

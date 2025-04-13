@@ -1,26 +1,37 @@
 import os
+import folder_paths
+import hashlib
 
 
-class LoadImagesFromDirectoryUpload:
+class LoadImage:
     @classmethod
     def INPUT_TYPES(s):
         input_dir = folder_paths.get_input_directory()
-        directories = []
-        for item in os.listdir(input_dir):
-            if not os.path.isfile(os.path.join(input_dir, item)) and item != "clipspace":
-                directories.append(item)
-        return {
-            "required": {
-                "directory": (directories,),
-            }
-        }
-    
-    RETURN_TYPES = ("IMAGE", "MASK", "INT")
-    RETURN_NAMES = ("IMAGE", "MASK", "frame_count")
-    FUNCTION = "load_images"
+        files = [f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f))]
+        return {"required":
+                    {"image": (sorted(files), {"image_upload": True})},
+                }
 
-    CATEGORY = ""
+    CATEGORY = "H-flow.Input"
 
-    def load_images(self, directory: str, **kwargs):
-        directory = folder_paths.get_annotated_filepath(strip_path(directory))
-        return load_images(directory, **kwargs)
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "load_image"
+    def load_image(self, image):
+        image_path = folder_paths.get_annotated_filepath(image)
+        print(image_path)
+        return (image_path, )
+
+    @classmethod
+    def IS_CHANGED(s, image):
+        image_path = folder_paths.get_annotated_filepath(image)
+        m = hashlib.sha256()
+        with open(image_path, 'rb') as f:
+            m.update(f.read())
+        return m.digest().hex()
+
+    @classmethod
+    def VALIDATE_INPUTS(s, image):
+        if not folder_paths.exists_annotated_filepath(image):
+            return "Invalid image file: {}".format(image)
+
+        return True
