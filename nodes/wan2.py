@@ -1,38 +1,48 @@
-
-
 import os
 import json
 import time
 import requests
-from .utils import get_comfyonline_api_key
+from .utils import get_comfyonline_api_key, process_image_path_or_url
 from server import PromptServer
 from aiohttp import web
 import nodes
+import folder_paths
+import random
 
 class Wan2ImageToVideo:
+
+    def __init__(self):
+        self.output_dir = folder_paths.get_output_directory()
+        self.prefix_append = ""
+        self.type = "output"
+        self.compress_level = 4
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
                 "image_url": ("STRING", {"default": ""}),
-            },
+            }
         }
 
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("video_url",)
     FUNCTION = "image_to_video"
-    CATEGORY = "H-flow.Video"
+    CATEGORY = "Video"
+    OUTPUT_NODE = True
 
-    def image_to_video(self, prompt, image_url):
+    def image_to_video(self, prompt, image_url, webhook=""):
         # 使用默认值
         max_wait_time = 3600  # 默认等待时间为3600秒
         polling_interval = 10  # 默认轮询间隔为10秒
         
+        results = list()
+        filename_prefix = "WanVideo"
         # 从环境变量获取API令牌
         api_token = get_comfyonline_api_key()
         if not api_token:
-            return ("Error: No API token provided. Please set WAN2_API_TOKEN environment variable.",)
+            return ("Error: No API token provided. Please set COMFYONLINE_TOKEN environment variable.",)
         
         # 创建任务
         create_task_url = "https://api.comfyonline.app/api/un-api/create_wan_image2video_task"
@@ -40,9 +50,10 @@ class Wan2ImageToVideo:
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_token}'
         }
+        image_url = process_image_path_or_url(image_url)
         payload = {
             "prompt": prompt,
-            "image_url": image_url
+            "image_url": image_url,
         }
         
         try:
@@ -59,13 +70,15 @@ class Wan2ImageToVideo:
             # 轮询查询任务状态
             query_url = "https://api.comfyonline.app/api/query_app_general_detail"
             start_time = time.time()
-            
+            full_output_folder, filename, counter, subfolder, filename_prefix = folder_paths.get_save_image_path(
+                filename_prefix, self.output_dir, 0, 0)
             while time.time() - start_time < max_wait_time:
                 query_payload = {"task_id": task_id}
                 query_response = requests.post(query_url, headers=headers, json=query_payload)
                 query_response.raise_for_status()
                 query_data = query_response.json()
-                
+                query_data = query_data['data']
+                print(query_data)
                 status = query_data.get('status')
                 print(f"Task status: {status}")
                 
@@ -74,7 +87,29 @@ class Wan2ImageToVideo:
                     output_url_list = output.get('output_url_list', [])
                     
                     if output_url_list and len(output_url_list) > 0:
-                        return (output_url_list[0],)
+                        counter = random.randint(1, 100000)
+                        file = f"{filename_prefix}_{counter:05}_.mp4"
+
+                        output_path = os.path.join(full_output_folder, file)
+                        
+                        # Download the image directly to disk with minimal memory usage
+                        response = requests.get(output_url_list[0], stream=True, timeout=10)
+                        response.raise_for_status()
+                        
+                        # Save the downloaded image directly to disk
+                        with open(output_path, 'wb') as f:
+                            for chunk in response.iter_content(chunk_size=8192):
+                                if chunk:
+                                    f.write(chunk)
+
+                            results.append({
+                                "filename": file,
+                                "subfolder": subfolder,
+                                "type": self.type,
+                                "url": output_url_list[0]
+                            })
+                            print(results)
+                        return {"ui": {"videos": results}, "result": (output_url_list[0],)}
                     else:
                         raise Exception("Task completed but no output URL found")
                 
@@ -89,5 +124,5 @@ class Wan2ImageToVideo:
             raise Exception(f"Task timed out after {max_wait_time} seconds")
             
         except Exception as e:
-            print(f"Error in Wan2ImageToVideo: {str(e)}")
+            print(f"Error in LumaImageToVideo: {str(e)}")
             return (f"Error: {str(e)}",)

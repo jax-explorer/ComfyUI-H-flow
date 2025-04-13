@@ -9,7 +9,7 @@ import nodes
 import folder_paths
 import random
 
-class HailuoImageToVideo:
+class Hailuo01ImageToVideo:
 
     def __init__(self):
         self.output_dir = folder_paths.get_output_directory()
@@ -23,9 +23,6 @@ class HailuoImageToVideo:
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
                 "image_url": ("STRING", {"default": ""}),
-                "aspect_ratio": ("STRING", {"default": "16:9", "choices": ["1:1", "4:3", "16:9", "9:16"]}),
-                "duration": ("INT", {"default": 4, "min": 1, "max": 16}),
-                "is_pro": ("BOOLEAN", {"default": False}),
             }
         }
 
@@ -48,7 +45,7 @@ class HailuoImageToVideo:
             return ("Error: No API token provided. Please set COMFYONLINE_TOKEN environment variable.",)
         
         # 创建任务
-        create_task_url = "https://api.comfyonline.app/api/un-api/create_kling_image2video_task"
+        create_task_url = "https://api.comfyonline.app/api/un-api/create_hailuo_video_01_image_to_video"
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_token}'
@@ -57,9 +54,6 @@ class HailuoImageToVideo:
         payload = {
             "prompt": prompt,
             "image_url": image_url,
-            "aspect_radio": aspect_ratio,
-            "duration": duration,
-            "isPro": is_pro
         }
         
         try:
@@ -130,5 +124,5 @@ class HailuoImageToVideo:
             raise Exception(f"Task timed out after {max_wait_time} seconds")
             
         except Exception as e:
-            print(f"Error in KlingImageToVideo: {str(e)}")
+            print(f"Error in HailuoImageToVideo: {str(e)}")
             return (f"Error: {str(e)}",)

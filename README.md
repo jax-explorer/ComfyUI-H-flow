@@ -5,12 +5,11 @@ support Many AI Feature
 Video
   - [x] Kling STD & Pro
   - [x] Runway
-  - [ ] Hailuo
+  - [x] Hailuo
   - [x] Luma
   - [ ] Pika
   - [ ] Vidu
-  - [ ] Wan 720P
-  - [ ] Hunyuan
+  - [x] Wan 720P
   - [ ] VEO
 
 Imgae
