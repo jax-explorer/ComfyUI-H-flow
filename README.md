@@ -16,11 +16,12 @@ Video
 Imgae
   - [ ] Midjourney
   - [x] Flux Pro
-  - [ ] Ideogram V2
+  - [x] Ideogram V2
   - [ ] Recraft
   - [ ] Flux Dev
   - [ ] Gemini
   - [ ] GPT 4O
+  - [x] HiDream I1
 
 Audio
   - [ ] ElevenLabs
@@ -31,6 +32,11 @@ LLM
   - [x] Claude 3.7 Sonnet 
   - [x] Gemini
   - [x] DeepSeek
+
+LipSync
+  - [ ] Kling LipSync
+  - [ ] Latent Lipsync
+  - [ ] Sonic
 
 VLLM
   - [ ] Gemini

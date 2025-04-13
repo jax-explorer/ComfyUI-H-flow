@@ -2,28 +2,29 @@ import os
 import json
 import time
 import requests
-from .utils import get_comfyonline_api_key
 from server import PromptServer
 from aiohttp import web
-import random
 import nodes
 import folder_paths
+import random
+from .utils import get_comfyonline_api_key
 
+class HiDreamI1:
 
-class IdeogramV2Turbo:
     def __init__(self):
         self.output_dir = folder_paths.get_output_directory()
         self.prefix_append = ""
         self.type = "output"
         self.compress_level = 4
-    
+
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
-                "aspect_ratio": (["1:1", "16:9", "9:16", "4:3", "3:4"], {"default": "1:1"}),
-                "style": (['auto', 'general', 'realistic', 'design', 'render_3D', 'anime'], {"default": "auto"})
+                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                "aspect_ratio": (["square", "square_hd", "portrait_4_3", "portrait_16_9", "landscape_4_3", "landscape_16_9"], {"default": "square_hd" }),
+                "type": (["hidream-i1-full", "hidream-i1-dev", "hidream-i1-fast"], {"default": "hidream-i1-full"}),
             }
         }
 
@@ -34,19 +35,19 @@ class IdeogramV2Turbo:
     OUTPUT_NODE = True
 
 
-    def generate_image(self, prompt, aspect_ratio, style):
+    def generate_image(self, prompt, seed, aspect_ratio, type):
         # 使用默认值
         max_wait_time = 3600  # 默认等待时间为3600秒
         polling_interval = 10  # 默认轮询间隔为10秒
         results = list()
-        print(f"generate_image")
+
         # 从环境变量获取API令牌
         api_token = get_comfyonline_api_key()
         if not api_token:
-            return ("Error: No API token provided. Please set API_TOKEN environment variable.",)
+            return ("Error: No API token provided. Please set comfyonline environment variable.",)
         
         # 创建任务
-        create_task_url = "https://api.comfyonline.app/api/un-api/create_ideogram_v2_turbo_task"
+        create_task_url = "https://api.comfyonline.app/api/un-api/create_hidream_i1_task"
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {api_token}'
@@ -54,11 +55,12 @@ class IdeogramV2Turbo:
         
         payload = {
             "prompt": prompt,
+            "seed": seed,
             "aspect_radio": aspect_ratio,
-            "style": style
+            "type": type
         }
+    
         
-
         try:
             response = requests.post(create_task_url, headers=headers, json=payload)
             response.raise_for_status()
@@ -68,10 +70,9 @@ class IdeogramV2Turbo:
                 raise Exception(f"Failed to create task: {json.dumps(data)}")
             
             task_id = data['data']['task_id']
-            print(f"IdeogramV2 task created with ID: {task_id}")
-            filename_prefix = "IdeogramV2"
+            print(f"FluxPro task created with ID: {task_id}")
+            filename_prefix = "HiDreamI1"
 
-            
             # 轮询查询任务状态
             query_url = "https://api.comfyonline.app/api/query_app_general_detail"
             start_time = time.time()
@@ -131,5 +132,5 @@ class IdeogramV2Turbo:
             raise Exception(f"Task timed out after {max_wait_time} seconds")
             
         except Exception as e:
-            print(f"Error in IdeogramV2Turbo: {str(e)}")
+            print(f"Error in HiDreamI1: {str(e)}")
             return (f"Error: {str(e)}",)

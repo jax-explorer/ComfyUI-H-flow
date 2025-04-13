@@ -6,6 +6,7 @@ from .nodes.Runway import RunwayGen3ImageToVideo
 from .nodes.SaveImage import SaveImage
 from .nodes.SaveVideo import SaveVideo
 from .nodes.wan2 import Wan2ImageToVideo
+from .nodes.HiDreamI1 import HiDreamI1
 
 
 NODE_CLASS_MAPPINGS = {
@@ -17,6 +18,7 @@ NODE_CLASS_MAPPINGS = {
       "IdeogramV2Turbo": IdeogramV2Turbo,
       "RunwayGen3ImageToVideo": RunwayGen3ImageToVideo,
       "KlingImageToVideo": KlingImageToVideo,
+      "HiDreamI1": HiDreamI1,
 
 }
 
@@ -33,7 +35,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
   "ReplaceText": "Replace Text",
   "JoinText": "Join Text",
   "TestImage": "Test Image",
-  "TestText": "Test Text"
+  "TestText": "Test Text",
+  "HiDreamI1": "HiDream I1"
 }
 
 WEB_DIRECTORY = "./web"
