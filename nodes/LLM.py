@@ -10,9 +10,9 @@ class LLMTask:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "model": (["deepseek-r1", "deepseek-v3", "gpt-4o", "gpt-4o-mini", 
-                          "claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022", 
-                          "gemini-1.5-pro", "gemini-1.5-flash", "gemini-2.0-flash-exp"],{"default": "gpt-4o" }),
+                "model": (["deepseek-r1", "gpt-4o", "gpt-4o-mini", 
+                          "claude-3-7-sonnet", "claude-3-5-sonnet", 
+                          "gemini-2.0-flash"],{"default": "gpt-4o" }),
                 "prompt": ("STRING", {"multiline": True}),
 
             },
@@ -43,8 +43,28 @@ class LLMTask:
     def create_llm_task(self, prompt, model, context=""):
         url = "https://api.comfyonline.app/api/un-api/create_LLM_task"
         
+    
+        if model == "gpt-4o-mini":
+            model = "OpenAI-gpt-4o-mini"
+        
         if model == "gpt-4o":
             model = "OpenAI-gpt-4o"
+        
+        if model == "deepseek-r1":
+            model = "Deepseek-deepseek-reasoner"
+        
+        if model == "gemini-2.0-flash":
+            model = "Gemini-gemini-2.0-flash"
+        
+        if model == "claude-3-7-sonnet":
+            model = "Claude-claude-3-7-sonnet-20250219"
+            
+        if model == "claude-3-5-sonnet":
+            model = "Claude-claude-3-5-sonnet-20241022"
+            
+        
+        
+        
         
         # 构建请求体
         body = {
