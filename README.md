@@ -51,6 +51,10 @@ https://github.com/user-attachments/assets/77bfe1f8-dc11-4a37-8c66-df96dd883d05
 
 
 
+https://github.com/user-attachments/assets/20c5e3d2-e0ba-402b-871e-7c3cd0dbb530
+
+
+
 ## how to use
 
 go to config.ini
